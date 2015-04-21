@@ -1,1 +1,18 @@
-var myDataRef = new Firebase('https://i38l6nmrso3.firebaseio-demo.com/');
+angular
+  .module('blocChat', [
+      'ui.router',
+      'firebase'
+  ])
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/home');
+
+    $stateProvider
+    .state('home', {
+      url: "/home",
+      templateUrl: "templates/home.html"
+    });
+
+
+
+});
+
