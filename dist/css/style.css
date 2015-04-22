@@ -1,0 +1,28 @@
+.rooms {
+  background: #DEDEDE;
+  width: 20%;
+  height: 700px;
+  float: left;
+  padding-left: 30px; }
+  .rooms li {
+    margin-bottom: 5px; }
+    .rooms li a {
+      color: red;
+      text-decoration: none; }
+
+.chatroom {
+  width: 80%;
+  min-height: 700px;
+  float: right; }
+
+html {
+  height: 100%; }
+
+body {
+  min-height: 100%; }
+
+li {
+  list-style-type: none; }
+
+.button {
+  float: right; }
