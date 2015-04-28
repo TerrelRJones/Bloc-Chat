@@ -1,14 +1,11 @@
 .rooms {
   background: #DEDEDE;
   width: 20%;
-  height: 700px;
+  min-height: 700px;
   float: left;
   padding-left: 30px; }
-  .rooms li {
-    margin-bottom: 5px; }
-    .rooms li a {
-      color: red;
-      text-decoration: none; }
+  .rooms h4 {
+    color: gray; }
 
 .chatroom {
   width: 80%;
