@@ -1,18 +1,61 @@
+<div ng-controller='roomsList'>
+    <section class='rooms'>
 
-<section class='rooms'>
+        <h1>Bloc Chat</h1>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Room</button>
+        <h4 ng-repeat='roomsName in rooms'> {{ roomsName.name }} </h4>
 
-    <h1>Bloc Chat</h1>
 
-    <ul>
-        <li><a href="">Room 1</a></li>
-        <li><a href="">Room 2</a></li>
-        <li><a href="">Room 3</a></li>
+    </section>
 
-    </ul>
+    <section class='chatroom' >
+      {{instantMessage.userName}}<br>
+      {{instantMessage.pubdate | date:'shortTime'}}: {{ instantMessage.message }}
+  </section>
 
-</section>
+  <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">New Room</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="roomName">Room Name</label>
+                  <input type="text" id="roomName" ng-model="newRoomName" class="form-control">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="addRoom(newRoomName)" data-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModal2Label">New User</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="nickName">Nickname</label>
+                  <input type="text" id="nickName" ng-model="newNickName" class="form-control">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="addUser(newNickName)">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
 
-<section class='chatroom'>
-    Chat room
-</section>
+
+
+
 
