@@ -5,6 +5,7 @@ blocChat = angular
   'firebase',
   'ngCookies'
   ])
+
 .config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
 
@@ -18,7 +19,6 @@ blocChat = angular
 })
 
 .run(['$cookies', function($cookies) {
-
     if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === '' ) {
       angular.element('#myModal2').modal({backdrop:'static'});
       angular.element('#myModal2').modal('show');
@@ -28,7 +28,7 @@ blocChat = angular
 
 // RoomsList Controller
 
-blocChat.controller('roomsList', ['$scope', 'Room', function ($scope, Room) {
+blocChat.controller('roomsList', ['$scope', '$cookies', 'Room', function ($scope, $cookies, Room) {
   $scope.rooms = Room.all;
 
   $scope.instantMessage = {
@@ -44,7 +44,9 @@ blocChat.controller('roomsList', ['$scope', 'Room', function ($scope, Room) {
       if (nickname === undefined) {
         angular.element('#myModal2').modal({backdrop:'static'});
         angular.element('#myModal2').modal('show');
-      } else {
+      }
+
+      else {
         $cookies.blocChatCurrentUser = nickname;
         $scope.newNickname = '';
         angular.element('#myModal2').modal('hide');
