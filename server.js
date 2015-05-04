@@ -23,6 +23,11 @@ var Hapi = require('hapi'),
             path: '/templates/{path*}',
             handler: createDirectoryRoute('templates')
         },
+        bowerComponents: {
+            method: 'GET',
+            path: '/bower_components/{path*}',
+            handler: createDirectoryRoute('bower_components')
+        },
         spa: {
             method: 'GET',
             path: '/{path*}',
@@ -32,7 +37,7 @@ var Hapi = require('hapi'),
         }
     };
 
-server.route([ routes.css, routes.js, routes.images, routes.templates, routes.spa ]);
+server.route([ routes.css, routes.js, routes.images, routes.templates, routes.bowerComponents, routes.spa ]);
 server.start( onServerStarted );
 
 function onServerStarted() {

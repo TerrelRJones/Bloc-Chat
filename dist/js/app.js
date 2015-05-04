@@ -28,8 +28,14 @@ blocChat = angular
 
 // RoomsList Controller
 
-blocChat.controller('roomsList', ['$scope', '$cookies', 'Room', function ($scope, $cookies, Room) {
-  $scope.rooms = Room.all;
+blocChat.controller('roomsList', ['$scope', '$cookies', '$window', 'Room', function ($scope, $cookies, $window, Room) {
+
+
+  $scope.addRoom = function (newRoomName) {
+      Room.add({name: newRoomName});
+
+      $scope.newRoomName = '';
+    };
 
   $scope.instantMessage = {
 
@@ -55,48 +61,23 @@ blocChat.controller('roomsList', ['$scope', '$cookies', 'Room', function ($scope
 
 }]);
 
-//Modal Controller
-
-blocChat.controller('ModalDemoCtrl', ['$scope', '$modal', '$log',  function ($scope, $modal, $log) {
-
-
-  $scope.newRoom = function (size) {
-
-    var modalInstance = $modal.open({
-      templateUrl: 'templates/createRoomModal.html',
-      controller: function ($scope, $modalInstance, item) {
-        $scope.items = items;
-      },
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-
-}]);
-
 // Firebase
 
-blocChat.factory( 'Room' , ['$firebase' , function($firebaseArray) {
+ blocChat.factory( 'Room' , function($firebaseArray, $window) {
 
-  var firebaseRef = new Firebase ('https://blazing-torch-5544.firebaseio.com/');
-  var rooms = $firebaseArray(firebaseRef.child('rooms'));
+ var ref = new $window.Firebase('https://blazing-torch-5544.firebaseio.com/rooms/');
+   // create an AngularFire reference to the data
+   var rooms = $firebaseArray(ref);
+   console.log(rooms);
+   return {
+     all: rooms,
+     add: function (room) {
+       this.all.$add(room);
+     }
+   };
 
-  return {
-    all: rooms
-  };
 
-
-}]);
+ });
 
 
 },{}]},{},[1]);
