@@ -27,8 +27,31 @@ blocChat = angular
 
 // RoomsList Controller
 
-blocChat.controller('roomsList', ['$scope', '$cookies', '$window', 'Room', function ($scope, $cookies, $window, Room) {
+blocChat.controller('roomsList', ['$firebaseArray', '$scope', '$cookies', '$window', 'Room', 'Message', function ($firebaseArray, $scope, $cookies, $window, Room, Message) {
+  $scope.rooms = Room.all;
 
+  $scope.deleteRoom = function (room) {
+      Room.remove(room);
+    };
+
+     $scope.addMessage = function (room) {
+      var message = {
+        text: $scope.messageText,
+        time: $window.moment().format('h:mm a'),
+        name: $cookies.blocChatCurrentUser
+      };
+
+      Message.add(room, message);
+      $scope.messageText = '';
+    };
+
+        $scope.getMessagesForRoom = function (room) {
+      $scope.currentRoom = room;
+      $scope.currentRoomName = room.name;
+
+      var currentRoomMessagesRef = new $window.Firebase($scope.rooms.$ref() + '/' + room.$id + '/messages/');
+      $scope.roomMessages = $firebaseArray(currentRoomMessagesRef);
+    };
 
   $scope.addRoom = function (newRoomName) {
       Room.add({name: newRoomName});
@@ -36,17 +59,17 @@ blocChat.controller('roomsList', ['$scope', '$cookies', '$window', 'Room', funct
       $scope.newRoomName = '';
     };
 
-  $scope.instantMessage = {
+//  $scope.instantMessage = {
 
-    message: 'Hey There!',
-    userName: 'Terrel',
-    pubdate: new Date()
-  };
+//    message: 'Hey There!',
+//    userName: 'Terrel',
+//    pubdate: new Date()
+//  };
 
   //USERS
     $scope.addUser = function (nickname) {
       console.log(nickname);
-      if (nickname === undefined) {
+      if (nickname === null) {
         angular.element('#myModal2').modal({backdrop:'static'});
         angular.element('#myModal2').modal('show');
       }
@@ -67,14 +90,32 @@ blocChat.controller('roomsList', ['$scope', '$cookies', '$window', 'Room', funct
  var ref = new $window.Firebase('https://blazing-torch-5544.firebaseio.com/rooms/');
    // create an AngularFire reference to the data
    var rooms = $firebaseArray(ref);
-   console.log(rooms);
+
    return {
      all: rooms,
      add: function (room) {
        this.all.$add(room);
+     },
+     remove: function (room) {
+       this.all.$remove(room);
      }
    };
 
-
  });
 
+ blocChat.factory( 'Message' , function($firebaseArray, $window) {
+    return {
+      all: function (roomId) {
+       var ref = new $window.Firebase('https://blazing-torch-5544.firebaseio.com/rooms/'+roomId+'/messages/');
+       return $firebaseArray(ref);
+      },
+      add: function (room, message) {
+        this.all(room.$id).$add(message);
+      },
+      remove: function (room, message) {
+        this.all(room.$id).$remove(message);
+      }
+    };
+
+
+ });

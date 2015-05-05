@@ -3,14 +3,21 @@
 
     <h1>Bloc Chat</h1>
     <button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Room</button>
-    <h4 ng-repeat='roomsName in rooms'> {{ roomsName.name }} </h4>
+    <h4 ng-repeat='room in rooms'> <a ng-click="deleteRoom(room)">delete</a> <a ng-click='getMessagesForRoom(room)'>{{ room.name }}</a></h4>
 
 
   </section>
+
 
   <section class='chatroom' >
-    {{instantMessage.userName}}<br>
-    {{instantMessage.pubdate | date:'shortTime'}}: {{ instantMessage.message }}
+    <div ng-repeat="message in roomMessages">
+       <strong> {{message.name}} </strong>
+                          {{message.time}} : {{message.text}}
+    </div>
   </section>
+
+
+        <input ng-model='messageText' type="text" placeholder='Messages' class="form-control instantMessage"><button ng-click='addMessage(currentRoom)' class='btn btn-default'>SEND</button>
+
 
 </div>

@@ -1,7 +1,7 @@
 .rooms {
   background: #DEDEDE;
   width: 20%;
-  min-height: 700px;
+  min-height: 670px;
   float: left;
   padding-left: 30px; }
   .rooms h4 {
@@ -9,8 +9,12 @@
 
 .chatroom {
   width: 80%;
-  min-height: 700px;
+  min-height: 634px;
   float: right; }
+
+.instantMessage {
+  width: 941px;
+  display: inline-block; }
 
 html {
   height: 100%; }
