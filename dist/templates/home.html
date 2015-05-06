@@ -1,25 +1,42 @@
 <div ng-controller='roomsList'>
-  <section class='rooms'>
+  <div id="wrapper">
 
-    <h1>Bloc Chat</h1>
-    <button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Room</button>
-    <h4 ng-repeat='room in rooms'> <a ng-click="deleteRoom(room)">delete</a> <a ng-click='getMessagesForRoom(room)'>{{ room.name }}</a></h4>
+    <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <div class="rooms">
 
-
-  </section>
-
-
-  <section class='chatroom' >
-    <div ng-repeat="message in roomMessages">
-     <div class="col col-lg-10">
-      <div class="name"><strong>{{message.name}}</strong>: {{ message.text }}</div>
-    </div>
-    <div class="col col-lg-2 text-right">
-      <div class="time">{{message.time}}</div>
-    </div>
-  </section>
-
-  <input ng-model='messageText' type="text" placeholder='Messages' class="form-control instantMessage" required><button ng-click='addMessage(currentRoom)' class='btn btn-default'>SEND</button>
-
-
+        <h1>Bloc Chat</h1>
+        <button class="btn btn-default" data-toggle="modal" data-target="#myModal">New Room</button>
+        <h4 ng-repeat='room in rooms'> <a ng-click="deleteRoom(room)">delete</a> <a ng-click='getMessagesForRoom(room)'>{{ room.name }}</a></h4>
 </div>
+    </div>
+      <div class="row">
+    <div class="col-lg-12">
+      <div class="container-fluid messages">
+        <div class="form-group">
+          <input ng-model='messageText' type="text" placeholder='Messages' class="form-control instantMessage" required><button ng-click='addMessage(currentRoom)' class='btn btn-default btn-chat'>SEND</button>
+        </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+                    <h1> {{ newRoomName }} </h1>
+           <div ng-repeat="message in roomMessages">
+           <div class="col col-lg-10">
+            <div class="name"><strong>{{message.name}}</strong>: {{ message.text }}</div>
+          </div>
+          <div class="col col-lg-2 text-right">
+            <div class="time">{{message.time}}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+        <!-- /#page-content-wrapper -->
+
+      </div>
+      <!-- /#wrapper -->
+    </div>
