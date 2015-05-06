@@ -11,13 +11,15 @@
 
   <section class='chatroom' >
     <div ng-repeat="message in roomMessages">
-       <strong> {{message.name}} </strong>
-                          {{message.time}} : {{message.text}}
+     <div class="col col-lg-10">
+      <div class="name"><strong>{{message.name}}</strong>: {{ message.text }}</div>
+    </div>
+    <div class="col col-lg-2 text-right">
+      <div class="time">{{message.time}}</div>
     </div>
   </section>
 
-
-        <input ng-model='messageText' type="text" placeholder='Messages' class="form-control instantMessage"><button ng-click='addMessage(currentRoom)' class='btn btn-default'>SEND</button>
+  <input ng-model='messageText' type="text" placeholder='Messages' class="form-control instantMessage" required><button ng-click='addMessage(currentRoom)' class='btn btn-default'>SEND</button>
 
 
 </div>
