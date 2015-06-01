@@ -60,13 +60,6 @@ blocChat.controller('roomsList', ['$firebaseArray', '$scope', '$cookies', '$wind
       $scope.newRoomName = '';
     };
 
-//  $scope.instantMessage = {
-
-//    message: 'Hey There!',
-//    userName: 'Terrel',
-//    pubdate: new Date()
-//  };
-
   //USERS
     $scope.addUser = function (nickname) {
       console.log(nickname);
